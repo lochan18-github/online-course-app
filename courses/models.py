@@ -16,7 +16,10 @@ class Choice(models.Model):
         return self.choice_text
 
 
+# ✅ FIXED Submission model (IMPORTANT)
 class Submission(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    selected_choice = models.ForeignKey(Choice, on_delete=models.CASCADE)
-    submitted_at = models.DateTimeField(auto_now_add=True)
+    selected_choices = models.ManyToManyField(Choice)
+
+    def __str__(self):
+        return f"Submission for {self.question.question_text}"
